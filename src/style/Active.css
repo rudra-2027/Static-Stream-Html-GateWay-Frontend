@@ -1,0 +1,138 @@
+.container {
+  list-style: none;
+  margin: 20px auto;
+  padding: 0;
+  max-width: 800px;
+  background-color: #fafafa;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  position: relative;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 20px 0;
+  color: #333;
+}
+
+h1 button {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 2rem;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+h1 button:hover {
+  color: #007bff;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e2e2e2;
+  transition: background 0.2s ease;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li:hover {
+  background-color: #f1f5ff;
+}
+
+li span {
+  flex: 1;
+  word-break: break-all;
+  font-size: 1rem;
+  color: #222;
+}
+
+.Btns {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.Btns h2 {
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+.play-btn {
+  background: #007bff;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.3rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.play-btn:hover {
+  transform: scale(1.1);
+  background: #0056b3;
+}
+
+
+.stop-btn {
+  background: #dc3545;
+}
+
+.stop-btn:hover {
+  background: #a71d2a;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #999;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.delete-btn:hover {
+  color: #e63946;
+}
+
+li span[style*="orange"] {
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .Btns {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h1 button {
+    font-size: 1.5rem;
+  }
+}
