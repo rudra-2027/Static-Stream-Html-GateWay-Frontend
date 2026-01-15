@@ -75,8 +75,8 @@ function EmailVerify() {
         to="/"
         className="position-absolute top-0 start-0 p-4 d-flex align-items-center gap-2 text-decoration-none"
       >
-        <img src="" alt="logo" height={32} width={32} />
-        <div className="fs-4 fw-semibold text-light">Authify</div>
+        
+        <div className="fs-4 fw-semibold text-light">Static Stream Html GateWay</div>
       </Link>
 
       <div className="p-5 rounded-4 shadow bg-white" style={{ width: '400px' }}>
