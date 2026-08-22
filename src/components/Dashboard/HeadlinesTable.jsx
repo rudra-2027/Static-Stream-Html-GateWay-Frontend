@@ -6,6 +6,8 @@ import "../../style/HeadlinesTable.css";
 function HeadlinesTable({
   headlines,
   sourceResults,
+  isLoading,
+  isSearchLoading,
   searchValue,
   setSearchValue,
   currentPage,
@@ -17,6 +19,7 @@ function HeadlinesTable({
   const currentHeadlines = headlines.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(headlines.length / itemsPerPage);
   const dataToShow = searchValue ? sourceResults : currentHeadlines;
+  const showLoading = searchValue ? isSearchLoading : isLoading;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSource, setSelectedSource] = useState(null);
@@ -46,7 +49,12 @@ function HeadlinesTable({
           />
         </div>
 
-        {dataToShow.length > 0 ? (
+        {showLoading ? (
+          <div className="loading">
+            <div className="loading-spinner"></div>
+            {searchValue ? "Searching headlines..." : "Loading headlines..."}
+          </div>
+        ) : dataToShow.length > 0 ? (
           <>
             <ul>
               <div className="table-header">
@@ -101,10 +109,7 @@ function HeadlinesTable({
             {searchValue ? (
               <p>No headlines found for "{searchValue}"</p>
             ) : (
-              <>
-                <div className="loading-spinner"></div>
-                Loading headlines...
-              </>
+              <p>No headlines available.</p>
             )}
           </div>
         )}

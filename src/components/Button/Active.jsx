@@ -13,10 +13,13 @@ function Active() {
   const [data, setData] = useState([]);
   const [fetchedData, setFetchedData] = useState({});
   const [timers, setTimers] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [fetchingIds, setFetchingIds] = useState({});
   const navigate = useNavigate();
 
 
   const fetchData = async () => {
+    setIsLoading(true);
     try {
       const res = await api.get("/headlines/getUrl");
       const urlsWithId = res.data.map((item, index) => ({
@@ -26,6 +29,8 @@ function Active() {
       setData(urlsWithId);
     } catch (error) {
       console.log("Fetch error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -38,6 +43,7 @@ function Active() {
     if (!item?.url) return;
     console.log(item.url);
 
+    setFetchingIds((prev) => ({ ...prev, [item.id]: true }));
     try {
       const res = await api.post("/headlines/fetch", {
         url: item.url,
@@ -47,6 +53,8 @@ function Active() {
       console.log("Fetched:", item.url);
     } catch (error) {
       console.log("Fetch URL data error:", error);
+    } finally {
+      setFetchingIds((prev) => ({ ...prev, [item.id]: false }));
     }
   };
 
@@ -132,6 +140,12 @@ function Active() {
           </button>
           Activate Your Site for Fetching
         </h1>
+        {isLoading ? (
+          <div className="active-loading">
+            <div className="active-loading-spinner"></div>
+            Loading active sources...
+          </div>
+        ) : data.length > 0 ? (
         <ul className="container">
           {data.map((item) => (
             <li className="list" key={item.id}>
@@ -145,11 +159,16 @@ function Active() {
                   className={`play-btn ${item.active ? "stop-btn" : ""}`}
                   onClick={() => toggleActive(item)}
                   title={item.active ? "Stop" : "Start"}
+                  disabled={fetchingIds[item.id]}
                 >
                   {item.active ? <BiSquare /> : <IoPlayOutline />}
                 </button>
 
-                {item.active && (
+                {fetchingIds[item.id] && (
+                  <span className="fetch-status">Fetching...</span>
+                )}
+
+                {!fetchingIds[item.id] && item.active && (
                   <span style={{ marginLeft: 10, color: "orange" }}>
                     ⏱ Next fetch in {timers[item.id] ?? 20}s
                   </span>
@@ -162,6 +181,9 @@ function Active() {
             </li>
           ))}
         </ul>
+        ) : (
+          <div className="active-empty">No active sources available.</div>
+        )}
       </div>
     </div>
   );

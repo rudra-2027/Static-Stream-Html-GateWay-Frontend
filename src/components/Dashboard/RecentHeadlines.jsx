@@ -3,11 +3,16 @@ import { formatDistanceToNow } from "date-fns";
 import { FaExternalLinkAlt, FaClock } from "react-icons/fa";
 import "../../style/RecentHeadlines.css";
 
-function RecentHeadlines({ headlines }) {
+function RecentHeadlines({ headlines, isLoading }) {
   return (
     <div className="recent-headlines-section animate-fade-in">
       <h2 className="recent-headlines-title">Recent Headlines</h2>
-      {headlines.length > 0 ? (
+      {isLoading ? (
+        <div className="loading">
+          <div className="loading-spinner"></div>
+          Loading recent headlines...
+        </div>
+      ) : headlines.length > 0 ? (
         <ul className="recentResss">
           {headlines.map((item) => (
             <li key={item.id} className="animate-slide-up">
@@ -28,8 +33,7 @@ function RecentHeadlines({ headlines }) {
         </ul>
       ) : (
         <div className="loading">
-          <div className="loading-spinner"></div>
-          Loading recent headlines...
+          No recent headlines available.
         </div>
       )}
     </div>

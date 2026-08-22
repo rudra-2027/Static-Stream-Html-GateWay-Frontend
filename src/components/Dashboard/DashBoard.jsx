@@ -20,6 +20,8 @@ function DashBoard() {
   const [headlineCount, setHeadlineCount] = useState(0);
   const [recentCount, setRecentCount] = useState(0);
   const [averagePerHour, setAveragePerHour] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
 
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,6 +38,7 @@ function DashBoard() {
 
     console.log("Token before fetch:", localStorage.getItem("token"));
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const [all, recentCnt, count, avg, recent, doactivate] = await Promise.all([
           api.get("/headlines"),
@@ -55,13 +58,21 @@ function DashBoard() {
 
       } catch (err) {
         console.error("Error fetching data:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
   }, []);
 
   useEffect(() => {
-    if (!searchValue) return;
+    if (!searchValue) {
+      setSourceResults([]);
+      setIsSearchLoading(false);
+      return;
+    }
+
+    setIsSearchLoading(true);
     const delay = setTimeout(async () => {
       try {
         const res = await api.post(
@@ -73,10 +84,15 @@ function DashBoard() {
         setSourceResults(res.data);
       } catch (err) {
         console.error("Error fetching source:", err);
+        setSourceResults([]);
+      } finally {
+        setIsSearchLoading(false);
       }
     }, 500);
 
-    return () => clearTimeout(delay);
+    return () => {
+      clearTimeout(delay);
+    };
   }, [searchValue]);
 
   return (
@@ -93,11 +109,13 @@ function DashBoard() {
         activeSources={activate}
       />
 
-      <RecentHeadlines headlines={recentHeadlines} />
+      <RecentHeadlines headlines={recentHeadlines} isLoading={isLoading} />
 
       <HeadlinesTable
         headlines={headlines}
         sourceResults={sourceResults}
+        isLoading={isLoading}
+        isSearchLoading={isSearchLoading}
         searchValue={searchValue}
         setSearchValue={setSearchValue}
         currentPage={currentPage}
