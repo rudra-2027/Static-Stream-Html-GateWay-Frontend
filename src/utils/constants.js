@@ -18,7 +18,7 @@ import axios from "axios";
 import {jwtDecode} from "jwt-decode"; // install using: npm install jwt-decode
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/v1.0",
+  baseURL:` ${import.meta.env.VITE_Backend_URL}/api/v1.0`|| "http://localhost:8080/api/v1.0",
 });
 
 api.interceptors.request.use((config) => {
