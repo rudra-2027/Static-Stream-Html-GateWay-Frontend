@@ -32,7 +32,7 @@ function ResetPassword() {
     try {
       const response = await api.post("/send-reset-otp?email=" + email);
       if (response.status === 200) {
-        toast.success('OTP sent to your email');
+        toast.success('OTP sent successfully. Please check your email inbox or spam folder.');
         setIsEmailSent(true);
       } else {
         toast.error('Failed to send OTP');
@@ -139,7 +139,7 @@ function ResetPassword() {
         >
           <h4 className="mb-3 text-dark">Reset Password</h4>
           <p className="mb-4 text-secondary">
-            Enter your registered email address to receive a reset OTP.
+            Enter your registered email address to receive a reset OTP. Please check your inbox or spam folder after sending.
           </p>
           <form onSubmit={handleSendResetOtp}>
             <div className="input-group mb-4">
@@ -170,7 +170,7 @@ function ResetPassword() {
       {isEmailSent && !isOtpVerified && (
         <div className="p-5 rounded-4 shadow bg-white text-center" style={{ width: '400px' }}>
           <h4 className="fw-bold mb-2">Verify OTP</h4>
-          <p className="text-black-50 mb-4">Enter the 6-digit code sent to your email.</p>
+          <p className="text-black-50 mb-4">Enter the 6-digit code sent to your email. Check your inbox or spam folder.</p>
 
           <div className="d-flex justify-content-between gap-2 mb-4">
             {[...Array(6)].map((_, i) => (

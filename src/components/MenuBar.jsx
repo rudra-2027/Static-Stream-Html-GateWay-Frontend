@@ -84,7 +84,7 @@ function MenuBar() {
       const response = await api.post("/send-otp", { email: userData?.email });
       if (response.status === 200) {
         navigate("/email-verify");
-        toast.success("OTP has been sent successfully");
+        toast.success("OTP sent successfully. Please check your email inbox or spam folder.");
       } else {
         toast.error("Unable to send OTP");
       }

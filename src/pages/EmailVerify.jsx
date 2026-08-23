@@ -80,7 +80,7 @@ function EmailVerify() {
       <div className="p-5 rounded-4 shadow bg-white" style={{ width: '400px' }}>
         <h4 className="text-center fw-bold mb-2">Email Verify OTP</h4>
         <p className="text-center text-black-50 mb-4">
-          Enter the 6-digit code sent to your email.
+          Enter the 6-digit code sent to your email. Check your inbox or spam folder.
         </p>
 
         <div className="d-flex justify-content-between gap-2 mb-4">

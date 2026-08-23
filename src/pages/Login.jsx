@@ -30,7 +30,7 @@ function Login() {
       if (isCreateAccount) {
         toast.success("Account created successfully! Please verify your email.");
         await api.post("/send-otp", { email });
-        toast.success("OTP has been sent successfully");
+        toast.success("OTP sent successfully. Please check your email inbox or spam folder.");
         navigate("/email-verify", { state: { email, password } });
       } else {
 
