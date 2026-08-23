@@ -28,7 +28,6 @@ api.interceptors.request.use((config) => {
     const currentTime = Date.now() / 1000;
 
     if (decoded.exp < currentTime) {
-      console.warn("Token expired, logging out...");
       localStorage.removeItem("token");
       window.location.href = "/login";
       return Promise.reject("Token expired");

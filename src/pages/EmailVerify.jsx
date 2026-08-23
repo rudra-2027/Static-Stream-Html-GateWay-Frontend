@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import api from '../utils/constants';
 
@@ -58,7 +57,6 @@ function EmailVerify() {
       toast.success("OTP verified and logged in!");
       navigate("/dashboard");
     } catch (err) {
-      console.error("OTP verification error:", err);
       const message = err.response?.data?.message || "Failed to verify OTP. Try again.";
       toast.error(message);
     } finally {

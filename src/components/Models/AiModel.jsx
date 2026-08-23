@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import '../../style/AiModel.css'
 import api from "../../utils/constants";
@@ -16,9 +15,8 @@ function AiModel({ source, onClose }) {
         { headers: { "Content-Type": "application/json" } }
       );
       setData(response.data);
-      console.log("Response:", response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    } catch {
+      setData("Unable to load data.");
     }
   };
 

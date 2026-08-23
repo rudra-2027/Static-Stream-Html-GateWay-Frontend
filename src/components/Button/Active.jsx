@@ -27,8 +27,8 @@ function Active() {
         ...item,
       }));
       setData(urlsWithId);
-    } catch (error) {
-      console.log("Fetch error:", error);
+    } catch {
+      setData([]);
     } finally {
       setIsLoading(false);
     }
@@ -41,7 +41,6 @@ function Active() {
   // Fetch for a single URL
   const fetchUrlData = async (item) => {
     if (!item?.url) return;
-    console.log(item.url);
 
     setFetchingIds((prev) => ({ ...prev, [item.id]: true }));
     try {
@@ -50,9 +49,8 @@ function Active() {
         headers: { "Content-Type": "text/plain" }
       });
       setFetchedData((prev) => ({ ...prev, [item.id]: res.data }));
-      console.log("Fetched:", item.url);
-    } catch (error) {
-      console.log("Fetch URL data error:", error);
+    } catch {
+      setFetchedData((prev) => ({ ...prev, [item.id]: null }));
     } finally {
       setFetchingIds((prev) => ({ ...prev, [item.id]: false }));
     }
@@ -83,8 +81,8 @@ function Active() {
           return copy;
         });
       }
-    } catch (error) {
-      console.log("Toggle error:", error);
+    } catch {
+      return;
     }
   };
 
@@ -123,8 +121,8 @@ function Active() {
         delete copy[item.id];
         return copy;
       });
-    } catch (error) {
-      console.log("Delete error:", error);
+    } catch {
+      return;
     }
   };
 

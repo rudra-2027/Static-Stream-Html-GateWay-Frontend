@@ -36,7 +36,6 @@ function DashBoard() {
       return;
     }
 
-    console.log("Token before fetch:", localStorage.getItem("token"));
     const fetchData = async () => {
       setIsLoading(true);
       try {
@@ -56,8 +55,10 @@ function DashBoard() {
         setRecentHeadlines(recent.data);
         setActive(doactivate.data.length);
 
-      } catch (err) {
-        console.error("Error fetching data:", err);
+      } catch {
+        setHeadlines([]);
+        setRecentHeadlines([]);
+        setSourceResults([]);
       } finally {
         setIsLoading(false);
       }
@@ -82,8 +83,7 @@ function DashBoard() {
         );
 
         setSourceResults(res.data);
-      } catch (err) {
-        console.error("Error fetching source:", err);
+      } catch {
         setSourceResults([]);
       } finally {
         setIsSearchLoading(false);

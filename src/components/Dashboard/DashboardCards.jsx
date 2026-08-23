@@ -1,7 +1,6 @@
 import React from "react";
 import StatCard from "./StatCard";
 import "../../style/DashboardCards.css";
-import Active from "../Button/Active";
 import { useNavigate } from "react-router-dom"
 
 function DashboardCards({ headlineCount, recentCount, averagePerHour, activeSources }) {
@@ -22,7 +21,6 @@ function DashboardCards({ headlineCount, recentCount, averagePerHour, activeSour
         subtitle="Monitored websites"
         color="green"
         onClick={() => {
-          console.log("Active Sources card clicked!");
           navigate("/active");
         }}
       />

@@ -37,9 +37,7 @@ function MenuBar() {
   //     toast.success("Logged out successfully");
   //     navigate("/login");
 
-  //     console.log(res.status);
   //   } catch (err) {
-  //     console.warn("Backend logout failed (maybe no token) — continuing anyway");
   //   }
   // };
   const handleLogout = async () => {
@@ -64,11 +62,7 @@ function MenuBar() {
       } else {
         toast.info("Logout request sent; session may have already expired");
       }
-    } catch (err) {
-      console.warn(
-        "Backend logout failed (maybe no session or token) — continuing anyway",
-        err
-      );
+    } catch {
       toast.info("Logging out locally anyway");
     } finally {
 
@@ -97,7 +91,6 @@ function MenuBar() {
     } catch (err) {
       const errorMsg = err?.response?.data?.message || err.message || "Failed to send verification OTP.";
       toast.error(errorMsg);
-      console.error("OTP send error:", err);
     }
   };
 

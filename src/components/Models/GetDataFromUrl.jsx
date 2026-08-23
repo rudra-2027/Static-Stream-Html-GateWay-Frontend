@@ -12,8 +12,6 @@ function GetDataFromUrl() {
   const [headlines, setHeadlines] = useState([]);
 
   const handleFetch = async () => {
-    console.log(inputValue);
-
     if (!inputValue) return;
     setLoading(true);
     try {
@@ -22,9 +20,6 @@ function GetDataFromUrl() {
         headers: { "Content-Type": "text/plain" }
       });
       setData(response.data);
-      console.log(Object.keys(response.data).length);
-
-      console.log("Response type:", typeof response.data, "value:", response.data);
 
       if (!response.data ||
         (Array.isArray(response.data) && response.data.length === 0) ||
@@ -39,12 +34,10 @@ function GetDataFromUrl() {
         url: inputValue,
         headers: { "Content-Type": "text/plain" }
       });
-      console.log(headlinesResponse.data)
 
       setHeadlines(headlinesResponse.data);
-    } catch (error) {
+    } catch {
       toast.error("Sorry This Site Dosen't Allow To Scrap The Data")
-      // console.error("Error fetching data:", error);
       setData(null);
     } finally {
       setLoading(false);

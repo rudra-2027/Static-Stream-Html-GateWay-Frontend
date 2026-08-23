@@ -15,8 +15,8 @@ function DashBoardHeader() {
 
 
     }
-    catch (error) {
-      console.error("Error fetching profile:", error);
+    catch {
+      setName("");
     }
   }
   useEffect(() => {

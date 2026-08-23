@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { AppContext } from '../context/AppContext';
 import { toast } from 'react-toastify';
 import api from '../utils/constants';
@@ -45,7 +44,6 @@ function Login() {
         navigate("/dashboard");
       }
     } catch (error) {
-      console.error("Login/Register Error:", error);
       const message =
         error.response?.data?.message ||
         (isCreateAccount ? "Failed to create account. Try again." : "Invalid credentials. Try again.");
